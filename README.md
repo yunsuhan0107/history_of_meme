@@ -16,6 +16,7 @@
 
 ### 이미지 분류 시스템
 Tensorflow 패키지를 이용한다. 그 중에서 Convolutional Neural Network(CNN)을 이용한 머신 러닝 기법을 이용한다. 정확도 향상을 위해 원본 이미지로부터 data augmentation을 이용해 이미지 샘플을 만들어 내는 Keras의 ImageDataGenerator 모듈을 사용한다. 약 3,500장의 훈련셋 이미지를 n개의 Convolutional Layer에 통과시킨다 (정확한 층수는 데이터 수집 단계 후 직접 실험을 통해 결정한다). 층 가운데에 n x n Max Pooling을 통해 Overfitting을 방지한다 (n 역시 실험을 통해 그 수를 정한다). Convolutional Layer에 통과시킨 후 n개의 Fully Connected Dense Layer에 Max Pooling한 픽셀의 값을 넘긴다. 마지막 Dense Layer의 활성함수는 n개의 다른 이벤트의 확률을 계산하는 softmax를 활용한다. ![image](https://user-images.githubusercontent.com/46840483/134803750-d99cb185-ad94-4959-a02e-1d5dbf02b348.png)
+
 ###### 프로그램의 구조를 이런 그림으로 나타낼 것입니다. 사진은 예시입니다.
 
 ### 결과 가시화
