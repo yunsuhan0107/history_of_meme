@@ -15,7 +15,9 @@
 웹 스크래핑을 이용하여 이미지 데이터셋을 구축한다. 소스는 구글, Imgur, Reddit, 9gag 등 다양한 곳에서 밈 이미지를 수집한다. 총 이미지 수는 5,000장을 목표로 한다. 이 중 3,500장을 훈련셋, 1,500장을 시험셋으로 나눈다. 만에 하나 이미지 분류 시스템이 특별한 성과를 보이지 못할 경우, 이미지를 추가로 수집한다. 이미지의 규격은 전부 정사각형으로 크롭한 뒤, 128x128 픽셀 단위로 리사이즈한다. 훈련 과정에서 과도한 시간이 요구될 경우, 정사각형 비율은 유지하나 사진 규격을 축소한다. 이미지는 모두 컬러 상태(3채널)로 입력한다 (원본이 흑백인 경우 제외). 
 
 ### 이미지 분류 시스템
-Tensorflow 패키지를 이용한다. 그 중에서 Convolutional Neural Network(CNN)을 이용한 머신 러닝 기법을 이용한다. 정확도 향상을 위해 원본 이미지로부터 data augmentation을 이용해 이미지 샘플을 만들어 내는 Keras의 ImageDataGenerator 모듈을 사용한다. 약 3,500장의 훈련셋 이미지를 n개의 Convolutional Layer에 통과시킨다 (정확한 층수는 데이터 수집 단계 후 직접 실험을 통해 결정한다). 층 가운데에 n x n Max Pooling을 통해 Overfitting을 방지한다 (n 역시 실험을 통해 그 수를 정한다). Convolutional Layer에 통과시킨 후 n개의 Fully Connected Dense Layer에 Max Pooling한 픽셀의 값을 넘긴다. 마지막 Dense Layer의 활성함수는 n개의 다른 이벤트의 확률을 계산하는 softmax를 활용한다. ![image](https://user-images.githubusercontent.com/46840483/134803750-d99cb185-ad94-4959-a02e-1d5dbf02b348.png)
+Tensorflow 패키지를 이용한다. 그 중에서 Convolutional Neural Network(CNN)을 이용한 머신 러닝 기법을 이용한다. 정확도 향상을 위해 원본 이미지로부터 data augmentation을 이용해 이미지 샘플을 만들어 내는 Keras의 ImageDataGenerator 모듈을 사용한다. 약 3,500장의 훈련셋 이미지를 n개의 Convolutional Layer에 통과시킨다 (정확한 층수는 데이터 수집 단계 후 직접 실험을 통해 결정한다). 층 가운데에 n x n Max Pooling을 통해 Overfitting을 방지한다 (n 역시 실험을 통해 그 수를 정한다). Convolutional Layer에 통과시킨 후 n개의 Fully Connected Dense Layer에 Max Pooling한 픽셀의 값을 넘긴다. 마지막 Dense Layer의 활성함수는 n개의 다른 이벤트의 확률을 계산하는 softmax를 활용한다. 
+
+![image](https://user-images.githubusercontent.com/46840483/134803750-d99cb185-ad94-4959-a02e-1d5dbf02b348.png)
 
 ###### 프로그램의 구조를 이런 그림으로 나타낼 것입니다. 사진은 예시입니다.
 
