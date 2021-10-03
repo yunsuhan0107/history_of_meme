@@ -53,7 +53,7 @@ def fetch_image_urls(query:str, max_links_to_fetch:int, wd:webdriver, sleep_betw
         else:
             print("Found:", len(image_urls), "image links, looking for more ...")
             time.sleep(30)
-            return
+            
             load_more_button = wd.find_element_by_css_selector(".mye4qd")
             if load_more_button:
                 wd.execute_script("document.querySelector('.mye4qd').click();")
@@ -63,7 +63,7 @@ def fetch_image_urls(query:str, max_links_to_fetch:int, wd:webdriver, sleep_betw
 
     return image_urls
 
-def persist_image(folder_path:str,url:str):
+def persist_image(folder_path:str, url:str):
     try:
         image_content = requests.get(url).content
 
@@ -73,15 +73,16 @@ def persist_image(folder_path:str,url:str):
     try:
         image_file = io.BytesIO(image_content)
         image = Image.open(image_file).convert('RGB')
-        file_path = os.path.join(folder_path,hashlib.sha1(image_content).hexdigest()[:10] + '.jpg')
+        file_path = os.path.join(folder_path, hashlib.sha1(image_content).hexdigest()[:10] + '.jpg')
         with open(file_path, 'wb') as f:
             image.save(f, "JPEG", quality=85)
         print(f"SUCCESS - saved {url} - as {file_path}")
+
     except Exception as e:
         print(f"ERROR - Could not save {url} - {e}")
 
-def search_and_download(search_term:str,driver_path:str,target_path='./images',number_images=5):
-    target_folder = os.path.join(target_path,'_'.join(search_term.lower().split(' ')))
+def search_and_download(search_term:str, driver_path:str, target_path='./images', number_images=200):
+    target_folder = os.path.join(target_path, '_'.join(search_term.lower().split(' ')))
 
     if not os.path.exists(target_folder):
         os.makedirs(target_folder)
@@ -89,8 +90,8 @@ def search_and_download(search_term:str,driver_path:str,target_path='./images',n
     with webdriver.Chrome(executable_path=driver_path) as wd:
         res = fetch_image_urls(search_term, number_images, wd=wd, sleep_between_interactions=0.5)
         
-    for elem in res:
-        persist_image(target_folder,elem)
+    for element in res:
+        persist_image(target_folder, element)
 
 search_term = 'Memes'
 
