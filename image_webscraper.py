@@ -6,7 +6,7 @@ import hashlib
 import io
 import requests
 
-DRIVER_PATH = "/Users/ys/Desktop/Scraping/chromedriver"
+DRIVER_PATH = "/Users/ys/Downloads/f/chromedriver"
 
 def fetch_image_urls(query:str, max_links_to_fetch:int, wd:webdriver, sleep_between_interactions:int=1):
     def scroll_to_end(wd):
@@ -81,7 +81,7 @@ def persist_image(folder_path:str, url:str):
     except Exception as e:
         print(f"ERROR - Could not save {url} - {e}")
 
-def search_and_download(search_term:str, driver_path:str, target_path='./images', number_images=200):
+def search_and_download(search_term:str, driver_path:str, target_path='./images', number_images=50):
     target_folder = os.path.join(target_path, '_'.join(search_term.lower().split(' ')))
 
     if not os.path.exists(target_folder):
@@ -93,7 +93,7 @@ def search_and_download(search_term:str, driver_path:str, target_path='./images'
     for element in res:
         persist_image(target_folder, element)
 
-search_term = 'Memes'
+search_term = 'no caption memes'
 
 search_and_download (
     search_term = search_term,
